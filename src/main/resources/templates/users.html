@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Пользователи</title>
+    <th:block th:replace="~{fragments :: styles}"></th:block>
+</head>
+<body>
+<nav th:replace="~{fragments :: menu}"></nav>
+<div class="container">
+    <h3>Зарегистрированные пользователи</h3>
+    <hr/>
+    <table class="table table-bordered table-striped" id="userTable">
+        <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Email</th>
+            <th>Роли</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.roles}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<th:block th:replace="~{fragments :: table-scripts('userTable')}"></th:block>
+</body>
+</html>

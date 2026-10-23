@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Студенты</title>
+    <th:block th:replace="~{fragments :: styles}"></th:block>
+</head>
+<body>
+<nav th:replace="~{fragments :: menu}"></nav>
+<div class="container">
+    <h3>Список студентов</h3>
+    <hr/>
+    <a th:href="@{/addStudentForm}" class="btn btn-primary mb-3">Добавить студента</a>
+
+    <table class="table table-bordered table-striped" id="studentTable">
+        <thead>
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Факультет</th>
+            <th>Возраст</th>
+            <th class="no-sort">Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.surname}"></td>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.faculty}"></td>
+            <td th:text="${student.age}"></td>
+            <td class="text-nowrap">
+                <a th:href="@{/showUpdateForm(studentId=${student.id})}" class="btn btn-info btn-sm">Изменить</a>
+                <!-- Удалять может только администратор: кнопка выводится только ему, а сервер проверяет роль ещё раз -->
+                <form th:if="${isAdmin}" th:action="@{/deleteStudent}" method="post" class="d-inline"
+                      onsubmit="return confirm('Удалить студента?')">
+                    <input type="hidden" name="studentId" th:value="${student.id}"/>
+                    <button type="submit" class="btn btn-danger btn-sm ms-2">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<th:block th:replace="~{fragments :: table-scripts('studentTable')}"></th:block>
+</body>
+</html>

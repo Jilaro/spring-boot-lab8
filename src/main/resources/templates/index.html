@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Учёт студентов</title>
+    <th:block th:replace="~{fragments :: styles}"></th:block>
+</head>
+<body>
+<nav th:replace="~{fragments :: menu}"></nav>
+<div class="container text-center" style="max-width: 640px">
+    <h1 class="mt-4">Учёт студентов</h1>
+    <p class="lead mt-3">Лабораторная работа № 8. Веб-приложение со Spring Security</p>
+
+    <div th:unless="${currentUser}" class="mt-4">
+        <p>Чтобы работать со списком студентов, войдите в систему.</p>
+        <a th:href="@{/login}" class="btn btn-primary">Войти</a>
+        <a th:href="@{/register}" class="btn btn-outline-primary ms-2">Зарегистрироваться</a>
+    </div>
+    <div th:if="${currentUser}" class="mt-4">
+        <p>Вы вошли как <b th:text="${currentUser}"></b>.</p>
+        <a th:href="@{/list}" class="btn btn-primary">Перейти к списку студентов</a>
+    </div>
+</div>
+</body>
+</html>

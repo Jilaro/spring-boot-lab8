@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Студент</title>
+    <th:block th:replace="~{fragments :: styles}"></th:block>
+</head>
+<body>
+<nav th:replace="~{fragments :: menu}"></nav>
+<div class="container" style="max-width: 560px">
+    <h3 th:text="${student.id == null} ? 'Новый студент' : 'Изменение студента'">Студент</h3>
+    <hr/>
+    <form th:action="@{/saveStudent}" th:object="${student}" method="post" novalidate>
+        <input type="hidden" th:field="*{id}"/>
+        <div class="mb-3">
+            <label class="form-label" for="surname">Фамилия</label>
+            <input type="text" th:field="*{surname}" class="form-control" th:errorclass="is-invalid"/>
+            <div class="invalid-feedback" th:errors="*{surname}"></div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="name">Имя</label>
+            <input type="text" th:field="*{name}" class="form-control" th:errorclass="is-invalid"/>
+            <div class="invalid-feedback" th:errors="*{name}"></div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="faculty">Факультет</label>
+            <input type="text" th:field="*{faculty}" class="form-control" th:errorclass="is-invalid"/>
+            <div class="invalid-feedback" th:errors="*{faculty}"></div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="age">Возраст</label>
+            <input type="number" th:field="*{age}" class="form-control" th:errorclass="is-invalid"/>
+            <div class="invalid-feedback" th:errors="*{age}"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a th:href="@{/list}" class="btn btn-outline-secondary ms-2">К списку</a>
+    </form>
+</div>
+</body>
+</html>
